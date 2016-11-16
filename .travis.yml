@@ -15,7 +15,7 @@ deploy:
   key: 'latest/test.zip'
   bundle_type: 'zip'
   application: test
-  deployment_group: 'test'
+  deployment_group: 'TestCodeDeployApplicationName'
   revision_type: github
   wait-until-deployed: true
   on:
