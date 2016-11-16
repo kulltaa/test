@@ -14,6 +14,7 @@ deploy:
   bucket: baonh-testcodedeploy
   key: api/$(date +'api-%F').zip
   bundle_type: zip
+  region: us-west-2
   application: TestCodeDeployApplicationName
   deployment_group: TestCodeDeployDeploymentGroupName
   revision_type: github
