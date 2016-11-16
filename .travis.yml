@@ -1,8 +1,23 @@
 language: node_js
 node_js:
-  - "node"
+- '7'
 install:
-  - npm install --dev
+- npm install --dev
 cache:
   directories:
-    - node_modules
+  - node_modules
+deploy:
+  provider: codedeploy
+  access_key_id: AKIAID7R52A5ZJCSIUOQ
+  secret_access_key:
+    secure: dUPOgz3ErN2yFXmM6Bg8YcyuEy1k+aTQiiCPjbY39nEwuVxD++TdlxMA+IwWp/EuQ/bmKyHR3YH8DqAMwc209eh3CE0LpF4Kt6hOi0Oek/YpYpk2CzkoOJ9IHLAlSbboUNsJh0Un/y/PgJOOTMmxHtRGpZIIrkXMdIEBnR0pfgelhNO8spWTVCADSxeAfdtLqHxUhqwUL2uvChesU85pXDGImZfhJBMhWC3ZXwePSuOXY14cNjq7KAJS6NLwp2aUzkR70bk2Fb4Dvjpv7t5NocXi76E2xalNQIyTMRfLROFruU7D5MtAkw9Ng9IFfFtRUUflX4YkO5nNOrWTx+lGPLhrwLJ3xikjgTNgnePboRYuTMG+FEtIgaPJduHn+XkAtjwdD4bkdt2S12OIoH7/3oMzrmMjR9dQVxohCaTslWBHTa7EXHj+pGi9P6LOqncJKb+RYJOSS2fGDRc+bKAsKvMrVniiX9Qbr0dVf716jtF5YuM7XyJof2gDXgenWlMDusLPvntDlsRlEHierAbFpzfAN9D5+jVPoCne1jdcVDlZbcj0vtEnylSfZUDvVd3Em3f2+AhbW82JVVXfF07bhMHnHvA2uxV/3kQ7JLU9ImyofFMzMCffDZM/9H2qQRmLHe9FF7HtGvFeV8ZOM/7445u43hXIReDNV8l4a7u3ga0=
+  bucket: ''
+  key: ''
+  bundle_type: ''
+  application: test
+  deployment_group: ''
+  revision_type: github
+  wait-until-deployed: true
+  on:
+    repo: kulltaa/test
+    branch: master
