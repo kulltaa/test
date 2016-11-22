@@ -1,8 +1,6 @@
-const Promise = require('bluebird');
-
-const createUserTable = function createUserTable(queryInterface, Sequelize) {
+const createTable = function createTable(queryInterface, Sequelize) {
   return queryInterface.createTable(
-    'user',
+    'user_access_token',
     {
       id: {
         type: Sequelize.INTEGER.UNSIGNED,
@@ -10,20 +8,17 @@ const createUserTable = function createUserTable(queryInterface, Sequelize) {
         autoIncrement: true,
         primaryKey: true
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: ''
+      user_id: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false
       },
-      username: {
+      access_token: {
         type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: ''
+        allowNull: false
       },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: ''
+      access_token_expired_at: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
       is_active: {
         type: Sequelize.BOOLEAN,
@@ -50,7 +45,7 @@ const createUserTable = function createUserTable(queryInterface, Sequelize) {
 
 const createUniqueIndex = function createUniqueIndex(queryInterface, field, indexName) {
   return queryInterface.addIndex(
-    'user',
+    'user_access_token',
     field,
     {
       indexName,
@@ -61,17 +56,12 @@ const createUniqueIndex = function createUniqueIndex(queryInterface, field, inde
 
 module.exports = {
   up(queryInterface, Sequelize) {
-    return createUserTable(queryInterface, Sequelize)
-      .then(() => {
-        const createEmailUnique = createUniqueIndex(queryInterface, ['email'], 'idx_email');
-        const createUsernameUnique = createUniqueIndex(queryInterface, ['username'], 'idx_username');
-
-        return Promise.all([createEmailUnique, createUsernameUnique]);
-      })
+    return createTable(queryInterface, Sequelize)
+      .then(() => createUniqueIndex(queryInterface, ['access_token'], 'idx_access_token'))
       .catch(error => console.log(error));
   },
 
   down(queryInterface) {
-    return queryInterface.dropTable('user');
+    return queryInterface.dropTable('user_access_token');
   }
 };

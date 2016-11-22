@@ -1,6 +1,6 @@
 module.exports = function createUserModel(sequelize, DataTypes) {
-  const User = sequelize.define(
-    'User',
+  const UserAccessToken = sequelize.define(
+    'UserAccessToken',
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -8,18 +8,17 @@ module.exports = function createUserModel(sequelize, DataTypes) {
         autoIncrement: true,
         primaryKey: true
       },
-      email: {
+      user_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false
+      },
+      access_token: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      username: {
-        type: DataTypes.STRING,
+      access_token_expired_at: {
+        type: DataTypes.DATE,
         allowNull: false
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: ''
       },
       is_active: {
         type: DataTypes.BOOLEAN,
@@ -28,15 +27,15 @@ module.exports = function createUserModel(sequelize, DataTypes) {
       }
     },
     {
-      tableName: 'user',
+      tableName: 'user_access_token',
       underscored: true,
       classMethods: {
         associate(models) {
-          User.hasMany(models.UserAccessToken);
+          UserAccessToken.belongsTo(models.User);
         }
       }
     }
   );
 
-  return User;
+  return UserAccessToken;
 };

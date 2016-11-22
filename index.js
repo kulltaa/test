@@ -23,6 +23,6 @@ server.register(plugins, (onRegisteredPluginsError) => {
 
     server.route(routes);
 
-    server.log('error', 'Server is running');
+    server.log('info', 'Server is running');
   });
 });

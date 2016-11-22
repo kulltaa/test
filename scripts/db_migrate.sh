@@ -3,7 +3,7 @@
 # NODE_ENV=development /bin/bash db_migrate.sh
 
 if [ -z "$NODE_ENV" ]; then
-  echo "Please set NODE_ENV env variable first"
+  echo "Please set NODE_ENV env variable before using this script"
   exit 1
 fi
 
