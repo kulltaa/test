@@ -32,6 +32,22 @@ module.exports = function createUserModel(sequelize, DataTypes) {
       classMethods: {
         associate(models) {
           UserAccessToken.belongsTo(models.User);
+        },
+
+        /**
+         * Validate access token
+         *
+         * @param token String
+         * @param model Object
+         * @return Promise
+         */
+        getAccessToken(token, model) {
+          return this
+            .findOne({
+              where: { access_token: token },
+              include: [{ model, required: true }]
+            })
+            .catch(error => Promise.reject(error));
         }
       }
     }

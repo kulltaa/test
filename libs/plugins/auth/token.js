@@ -1,15 +1,15 @@
 const AuthBearer = require('hapi-auth-bearer-token');
 
-const validate = function validate(token, callback) {
+const AUTH_NAME = 'auth-access-token';
+const AUTH_SCHEME = 'bearer-access-token';
+
+const validateAccessToken = function validateAccessToken(token, callback) {
   const request = this;
   const User = request.getDb('condo').getModel('User');
   const UserAccessToken = request.getDb('condo').getModel('UserAccessToken');
 
   UserAccessToken
-    .findOne({
-      where: { access_token: token },
-      include: [{ model: User, required: true }]
-    })
+    .getAccessToken(token, User)
     .then((result) => {
       if (!result) {
         callback(null, false);
@@ -31,10 +31,10 @@ const validate = function validate(token, callback) {
 };
 
 module.exports = {
-  name: 'simple',
-  scheme: 'bearer-access-token',
+  name: AUTH_NAME,
+  scheme: AUTH_SCHEME,
   plugin: AuthBearer,
   options: {
-    validateFunc: validate
+    validateFunc: validateAccessToken
   }
 };

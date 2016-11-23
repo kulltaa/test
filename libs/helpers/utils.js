@@ -1,5 +1,13 @@
 module.exports = {
-  getEnv(key, defaultValue) {
+
+  /**
+   * Get environment variable by key
+   *
+   * @param key
+   * @param defaultValue
+   * @returns Object
+   */
+  getEnv(key, defaultValue = '') {
     if (!key) {
       throw new Error('Key is required');
     }

@@ -1,5 +1,4 @@
-const utils = require('../../libs/helpers/utils');
-const generateAccessToken = require('../../libs/helpers/accessToken');
+const generateAccessToken = require('../../libs/helpers/token');
 
 module.exports = {
   create(request, reply) {
@@ -14,6 +13,8 @@ module.exports = {
       reply('success');
     })
     .catch((error) => {
+      request.log('error', error);
+
       reply(error);
     });
   },
@@ -45,7 +46,8 @@ module.exports = {
       .catch(error => reply(error));
     })
     .catch((error) => {
-      console.log(error);
+      request.log('error', error);
+
       reply(error);
     });
   },
@@ -58,6 +60,8 @@ module.exports = {
         reply(users);
       })
       .catch((error) => {
+        request.log('error', error);
+
         reply(error);
       });
   }

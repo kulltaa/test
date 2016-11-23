@@ -16,7 +16,7 @@ module.exports = [
     path: '/users',
     handler: UserController.all,
     config: {
-      auth: 'simple'
+      auth: 'auth-access-token'
     }
   }
 ];

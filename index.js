@@ -23,6 +23,6 @@ server.register(plugins, (onRegisteredPluginsError) => {
 
     server.route(routes);
 
-    server.log('info', 'Server is running');
+    server.log('info', `Server is running on port ${APP_PORT}`);
   });
 });

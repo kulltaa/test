@@ -22,7 +22,7 @@ const registerAuth = function registerAuth(server, file) {
 };
 
 exports.register = function register(server, options, next) {
-  Promise.each(files, file => registerAuth(server, file))
+  Promise.map(files, file => registerAuth(server, file))
     .then(() => {
       next();
 
@@ -36,7 +36,7 @@ exports.register = function register(server, options, next) {
 };
 
 exports.register.attributes = {
-  name: 'Auth',
+  name: 'auth',
   version: '0.0.1',
   multiple: false
 };
