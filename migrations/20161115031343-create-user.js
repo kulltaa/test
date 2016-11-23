@@ -48,7 +48,7 @@ const createUserTable = function createUserTable(queryInterface, Sequelize) {
   );
 };
 
-const createUniqueIndex = function createUniqueIndex(queryInterface, field, indexName) {
+const createUniqueIndex = function createUniqueIndex(queryInterface, indexName, ...field) {
   return queryInterface.addIndex(
     'user',
     field,
@@ -63,8 +63,8 @@ module.exports = {
   up(queryInterface, Sequelize) {
     return createUserTable(queryInterface, Sequelize)
       .then(() => {
-        const createEmailUnique = createUniqueIndex(queryInterface, ['email'], 'idx_email');
-        const createUsernameUnique = createUniqueIndex(queryInterface, ['username'], 'idx_username');
+        const createEmailUnique = createUniqueIndex(queryInterface, 'idx_email', 'email');
+        const createUsernameUnique = createUniqueIndex(queryInterface, 'idx_username', 'username');
 
         return Promise.all([createEmailUnique, createUsernameUnique]);
       })

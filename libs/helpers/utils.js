@@ -13,5 +13,14 @@ module.exports = {
     }
 
     return process.env[key] || defaultValue;
+  },
+
+  /**
+   * Get current NODE_ENV value
+   *
+   * @return string
+   */
+  env() {
+    return this.getEnv('NODE_ENV');
   }
 };

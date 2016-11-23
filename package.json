@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*.spec.js",
     "lint": "./node_modules/.bin/eslint -c .eslintrc .",
-    "migrate": "cd scripts && NODE_ENV=development /bin/bash db_migrate.sh"
+    "db:migrate": "cd scripts && NODE_ENV=development /bin/bash db_migrate.sh"
   },
   "author": "",
   "license": "ISC",

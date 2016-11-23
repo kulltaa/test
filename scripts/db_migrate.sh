@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# NODE_ENV=development /bin/bash db_migrate.sh
-
 if [ -z "$NODE_ENV" ]; then
   echo "Please set NODE_ENV variable before using this script"
   exit 1
 fi
-
 
 if [ "$NODE_ENV" != "development" ]; then
   echo "Should not run this in test or production environment"

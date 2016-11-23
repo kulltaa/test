@@ -43,7 +43,7 @@ const createTable = function createTable(queryInterface, Sequelize) {
   );
 };
 
-const createUniqueIndex = function createUniqueIndex(queryInterface, field, indexName) {
+const createUniqueIndex = function createUniqueIndex(queryInterface, indexName, ...field) {
   return queryInterface.addIndex(
     'user_access_token',
     field,
@@ -57,7 +57,7 @@ const createUniqueIndex = function createUniqueIndex(queryInterface, field, inde
 module.exports = {
   up(queryInterface, Sequelize) {
     return createTable(queryInterface, Sequelize)
-      .then(() => createUniqueIndex(queryInterface, ['access_token'], 'idx_access_token'))
+      .then(() => createUniqueIndex(queryInterface, 'idx_access_token', 'access_token'))
       .catch(error => console.log(error));
   },
 

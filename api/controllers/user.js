@@ -12,11 +12,7 @@ module.exports = {
     .then(() => {
       reply('success');
     })
-    .catch((error) => {
-      request.log('error', error);
-
-      reply(error);
-    });
+    .catch(error => reply.serverError(error));
   },
 
   login(request, reply) {
@@ -45,11 +41,7 @@ module.exports = {
       .then(() => reply('success'))
       .catch(error => reply(error));
     })
-    .catch((error) => {
-      request.log('error', error);
-
-      reply(error);
-    });
+    .catch(error => reply.serverError(error));
   },
 
   all(request, reply) {
@@ -57,12 +49,8 @@ module.exports = {
 
     return User.findAll()
       .then((users) => {
-        reply(users);
+        reply.success(users);
       })
-      .catch((error) => {
-        request.log('error', error);
-
-        reply(error);
-      });
+      .catch(error => reply.serverError(error));
   }
 };

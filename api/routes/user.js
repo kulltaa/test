@@ -15,8 +15,8 @@ module.exports = [
     method: 'GET',
     path: '/users',
     handler: UserController.all,
-    config: {
-      auth: 'auth-access-token'
-    }
+    // config: {
+    //   auth: 'auth-access-token'
+    // }
   }
 ];
