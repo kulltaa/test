@@ -9,7 +9,7 @@ const validateAccessToken = function validateAccessToken(token, callback) {
   const UserAccessToken = request.getDb('condo').getModel('UserAccessToken');
 
   UserAccessToken
-    .getAccessToken(token, User)
+    .isAccessTokenValid(token, User)
     .then((result) => {
       if (!result) {
         callback(null, false);

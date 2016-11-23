@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = function createUserModel(sequelize, DataTypes) {
   const UserAccessToken = sequelize.define(
     'UserAccessToken',
@@ -23,7 +25,7 @@ module.exports = function createUserModel(sequelize, DataTypes) {
       is_active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: true
       }
     },
     {
@@ -41,13 +43,26 @@ module.exports = function createUserModel(sequelize, DataTypes) {
          * @param model Object
          * @return Promise
          */
-        getAccessToken(token, model) {
-          return this
-            .findOne({
-              where: { access_token: token },
-              include: [{ model, required: true }]
-            })
-            .catch(error => Promise.reject(error));
+        isAccessTokenValid(token, ...includedModels) {
+          const cond = {
+            where: {
+              access_token: token,
+              is_active: true,
+              access_token_expired_at: {
+                $gt: moment().utc().toDate()
+              }
+            }
+          };
+
+          if (includedModels) {
+            cond.include = [];
+
+            includedModels.forEach(model => (
+              cond.include.push({ model, required: true })
+            ));
+          }
+
+          return this.findOne(cond);
         }
       }
     }

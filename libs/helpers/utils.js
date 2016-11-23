@@ -5,7 +5,7 @@ module.exports = {
    *
    * @param key
    * @param defaultValue
-   * @returns Object
+   * @return Object
    */
   getEnv(key, defaultValue = '') {
     if (!key) {

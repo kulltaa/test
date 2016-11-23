@@ -5,6 +5,13 @@ const Promise = require('bluebird');
 const files = fs.readdirSync(path.join(__dirname, 'auth'))
   .filter(file => file.indexOf('.') !== 0);
 
+/**
+ * Register auth plugin
+ *
+ * @param server
+ * @param file
+ * @return Promise
+ */
 const registerAuth = function registerAuth(server, file) {
   return new Promise((resolve, reject) => {
     const auth = require(path.join(__dirname, 'auth', file)); // eslint-disable-line
