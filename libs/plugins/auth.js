@@ -6,11 +6,11 @@ const files = fs.readdirSync(path.join(__dirname, 'auth'))
   .filter(file => file.indexOf('.') !== 0);
 
 /**
- * Register auth plugin
+ * Register auth plugin by file
  *
- * @param server
- * @param file
- * @return Promise
+ * @param {Hapi.Server} server
+ * @param {String} file
+ * @return {Promise}
  */
 const registerAuth = function registerAuth(server, file) {
   return new Promise((resolve, reject) => {

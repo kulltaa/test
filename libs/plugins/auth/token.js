@@ -3,6 +3,13 @@ const AuthBearer = require('hapi-auth-bearer-token');
 const AUTH_NAME = 'auth-access-token';
 const AUTH_SCHEME = 'bearer-access-token';
 
+/**
+ * Validate access token
+ *
+ * @param {String} token
+ * @param {Function} callback
+ * @return {Promise}
+ */
 const validateAccessToken = function validateAccessToken(token, callback) {
   const request = this;
   const User = request.getDb('condo').getModel('User');

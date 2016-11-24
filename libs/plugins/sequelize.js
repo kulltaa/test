@@ -15,7 +15,8 @@ const sequelize = new Sequelize(MYSQL_DBNAME, MYSQL_USERNAME, MYSQL_PASSWORD, {
   port: MYSQL_PORT,
   dialect: 'mysql',
   engine: MYSQL_ENGINE,
-  charset: MYSQL_CHARSET
+  charset: MYSQL_CHARSET,
+  logging: utils.env() !== 'production'
 });
 
 module.exports = {
@@ -25,6 +26,6 @@ module.exports = {
     name: MYSQL_DBNAME,
     models: ['./api/models/**/*.js'],
     sync: false,
-    debug: false
+    debug: utils.env() !== 'production'
   }
 };

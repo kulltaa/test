@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const Hapi = require('hapi');
 
-const routes = require('./api/routes');
 const plugins = require('./libs/plugins');
 const utils = require('./libs/helpers/utils');
 
@@ -20,8 +19,6 @@ server.register(plugins, (onRegisteredPluginsError) => {
     if (onStartedServerError) {
       throw onStartedServerError;
     }
-
-    server.route(routes);
 
     server.log('info', `Server is running on port ${APP_PORT}`);
   });

@@ -39,9 +39,9 @@ module.exports = function createUserModel(sequelize, DataTypes) {
         /**
          * Validate access token
          *
-         * @param token String
-         * @param model Object
-         * @return Promise
+         * @param {String} token
+         * @param {Sequelize.Model[]} includedModels
+         * @return {Promise}
          */
         isAccessTokenValid(token, ...includedModels) {
           const cond = {

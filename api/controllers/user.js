@@ -28,7 +28,7 @@ module.exports = {
       }
     }).then((user) => {
       if (!user) {
-        return reply('not found');
+        return reply.notFound();
       }
 
       const token = generateAccessToken();

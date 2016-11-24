@@ -3,9 +3,9 @@ module.exports = {
   /**
    * Get environment variable by key
    *
-   * @param key
-   * @param defaultValue
-   * @return Object
+   * @param {String} key
+   * @param {String} defaultValue
+   * @return {String}
    */
   getEnv(key, defaultValue = '') {
     if (!key) {
@@ -18,7 +18,7 @@ module.exports = {
   /**
    * Get current NODE_ENV value
    *
-   * @return string
+   * @return {String}
    */
   env() {
     return this.getEnv('NODE_ENV');
