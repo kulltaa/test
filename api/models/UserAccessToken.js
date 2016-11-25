@@ -1,4 +1,8 @@
+const crypto = require('crypto');
 const moment = require('moment');
+const utils = require('../../libs/helpers/utils');
+
+const ACCESS_TOKEN_LIFE_TIME = Number(utils.getEnv('ACCESS_TOKEN_LIFE_TIME'));
 
 module.exports = function createUserModel(sequelize, DataTypes) {
   const UserAccessToken = sequelize.define(
@@ -34,6 +38,26 @@ module.exports = function createUserModel(sequelize, DataTypes) {
       classMethods: {
         associate(models) {
           UserAccessToken.belongsTo(models.User);
+        },
+
+        /**
+         * Generate access token
+         *
+         * @return {{value: String, expired: Date}}
+         */
+        genToken() {
+          try {
+            const buff = crypto.randomBytes(256);
+            const tokenValue = crypto.createHash('sha1').update(buff).digest('hex');
+            const tokenExpired = moment().utc().add(ACCESS_TOKEN_LIFE_TIME, 'seconds').toDate();
+
+            return {
+              value: tokenValue,
+              expired: tokenExpired
+            };
+          } catch (e) {
+            throw e;
+          }
         },
 
         /**

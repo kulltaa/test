@@ -1,7 +1,14 @@
-const responses = require('../../api/responses');
+const fs = require('fs');
+const path = require('path');
+
+const files = fs.readdirSync(path.join(__dirname, 'responses'))
+  .filter(file => file.indexOf('.') !== 0);
 
 exports.register = function registerResponse(server, options, next) {
-  responses.forEach(res => server.decorate('reply', res.method, res.handler));
+  files.forEach((file) => {
+    const res = require(path.join(__dirname, 'responses', file)); // eslint-disable-line
+    server.decorate('reply', res.method, res.handler);
+  });
 
   next();
 };

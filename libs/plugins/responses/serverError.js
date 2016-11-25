@@ -1,4 +1,4 @@
-const utils = require('../../libs/helpers/utils');
+const utils = require('../../helpers/utils');
 
 module.exports = {
   method: 'serverError',

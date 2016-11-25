@@ -2,34 +2,32 @@ const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
 
-const files = fs.readdirSync(path.join(__dirname, 'auth'))
+const files = fs.readdirSync(path.join(__dirname, 'orms'))
   .filter(file => file.indexOf('.') !== 0);
 
 /**
- * Register auth plugin by file
+ * Register db plugin by file
  *
  * @param {Hapi.Server} server
  * @param {String} file
  * @return {Promise}
  */
-const registerAuthByFile = function registerAuthByFile(server, file) {
+const registerDbByFile = function registerDbByFile(server, file) {
   return new Promise((resolve, reject) => {
-    const auth = require(path.join(__dirname, 'auth', file)); // eslint-disable-line
+    const db = require(path.join(__dirname, 'orms', file)); // eslint-disable-line
 
-    server.register(auth.plugin, (error) => {
+    server.register(db, (error) => {
       if (error) {
         return reject(error);
       }
-
-      server.auth.strategy(auth.name, auth.scheme, auth.options);
 
       return resolve();
     });
   });
 };
 
-exports.register = function registerAuth(server, options, next) {
-  Promise.map(files, file => registerAuthByFile(server, file))
+exports.register = function registerDb(server, options, next) {
+  Promise.map(files, file => registerDbByFile(server, file))
     .then(() => {
       next();
 
@@ -43,7 +41,7 @@ exports.register = function registerAuth(server, options, next) {
 };
 
 exports.register.attributes = {
-  name: 'auth',
+  name: 'db',
   version: '0.0.1',
   multiple: false
 };

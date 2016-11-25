@@ -26,7 +26,7 @@ describe('Auth', () => {
     server.stop(done);
   })
 
-  it.only('should return credentials when request is valid', (done) => {
+  it('should return credentials when request is valid', (done) => {
     const credentials = {
       username: 'some-username'
     };

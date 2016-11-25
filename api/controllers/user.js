@@ -1,5 +1,3 @@
-const generateAccessToken = require('../../libs/helpers/token');
-
 module.exports = {
   create(request, reply) {
     const User = request.getDb('condo').getModel('User');
@@ -10,7 +8,7 @@ module.exports = {
       password: '123'
     })
     .then(() => {
-      reply('success');
+      reply.success();
     })
     .catch(error => reply.serverError(error));
   },
@@ -31,15 +29,15 @@ module.exports = {
         return reply.notFound();
       }
 
-      const token = generateAccessToken();
+      const token = UserAccessToken.genToken();
 
       return UserAccessToken.create({
         access_token: token.value,
         access_token_expired_at: token.expired,
         user_id: user.id
       })
-      .then(() => reply('success'))
-      .catch(error => reply(error));
+      .then(() => reply.success())
+      .catch(error => reply.serverError(error));
     })
     .catch(error => reply.serverError(error));
   },

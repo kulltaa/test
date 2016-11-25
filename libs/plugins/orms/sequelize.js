@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const HapiSequelize = require('hapi-sequelize');
-const utils = require('../helpers/utils');
+const utils = require('../../helpers/utils');
 
 const MYSQL_HOST = utils.getEnv('MYSQL_HOST');
 const MYSQL_PORT = utils.getEnv('MYSQL_PORT');

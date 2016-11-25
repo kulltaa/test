@@ -7,7 +7,7 @@ module.exports = {
    * @param {Object} data
    * @return Hapi.Response
    */
-  handler(data) {
+  handler(data = {}) {
     const res = this.response(data);
     res.statusCode = 200;
 
