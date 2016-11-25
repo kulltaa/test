@@ -2,9 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
 
-const files = fs.readdirSync(path.join(__dirname, 'orms'))
-  .filter(file => file.indexOf('.') !== 0);
-
 /**
  * Register db plugin by file
  *
@@ -14,9 +11,9 @@ const files = fs.readdirSync(path.join(__dirname, 'orms'))
  */
 const registerDbByFile = function registerDbByFile(server, file) {
   return new Promise((resolve, reject) => {
-    const db = require(path.join(__dirname, 'orms', file)); // eslint-disable-line
+    const orm = require(path.join(__dirname, 'orms', file)); // eslint-disable-line
 
-    server.register(db, (error) => {
+    server.register(orm, (error) => {
       if (error) {
         return reject(error);
       }
@@ -27,6 +24,10 @@ const registerDbByFile = function registerDbByFile(server, file) {
 };
 
 exports.register = function registerDb(server, options, next) {
+  const files = fs
+    .readdirSync(path.join(__dirname, 'orms'))
+    .filter(file => file.indexOf('.') !== 0);
+
   Promise.map(files, file => registerDbByFile(server, file))
     .then(() => {
       next();

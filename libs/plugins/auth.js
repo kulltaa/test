@@ -2,9 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
 
-const files = fs.readdirSync(path.join(__dirname, 'auth'))
-  .filter(file => file.indexOf('.') !== 0);
-
 /**
  * Register auth plugin by file
  *
@@ -29,6 +26,10 @@ const registerAuthByFile = function registerAuthByFile(server, file) {
 };
 
 exports.register = function registerAuth(server, options, next) {
+  const files = fs
+    .readdirSync(path.join(__dirname, 'auth'))
+    .filter(file => file.indexOf('.') !== 0);
+
   Promise.map(files, file => registerAuthByFile(server, file))
     .then(() => {
       next();

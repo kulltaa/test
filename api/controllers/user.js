@@ -1,6 +1,6 @@
 module.exports = {
   create(request, reply) {
-    const User = request.getDb('condo').getModel('User');
+    const User = request.getDb().getModel('User');
 
     return User.create({
       email: 'test@mail.com',
@@ -14,8 +14,8 @@ module.exports = {
   },
 
   login(request, reply) {
-    const User = request.getDb('condo').getModel('User');
-    const UserAccessToken = request.getDb('condo').getModel('UserAccessToken');
+    const User = request.getDb().getModel('User');
+    const UserAccessToken = request.getDb().getModel('UserAccessToken');
 
     const { username, password } = request.payload;
 
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   all(request, reply) {
-    const User = request.getDb('condo').getModel('User');
+    const User = request.getDb().getModel('User');
 
     return User.findAll()
       .then((users) => {

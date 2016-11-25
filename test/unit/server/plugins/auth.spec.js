@@ -1,6 +1,5 @@
 /* eslint-disable */
 const Hapi = require('hapi');
-const Promise = require('bluebird');
 const sinon = require('sinon');
 const chai = require('chai');
 const authPlugin = require('../../../../libs/plugins/auth');
@@ -46,7 +45,7 @@ describe('Auth', () => {
       method: 'GET',
       path: '/',
       handler (request, reply) {
-        request.server.auth.test('auth-access-token', request, (error, credentials) => {
+        request.server.auth.test(authToken.name, request, (error, credentials) => {
           if (error) {
             return reply(error);
           }
@@ -58,8 +57,7 @@ describe('Auth', () => {
 
     server.inject(options, (res) => {
       sinon.assert.calledWith(stub, token);
-      expect(res.result).to.include.keys('username');
-      expect(res.result.username).to.equal(credentials.username);
+      expect(res.result).to.deep.equal(credentials);
 
       done();
     });

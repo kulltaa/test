@@ -6,7 +6,9 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*.spec.js",
     "lint": "./node_modules/.bin/eslint -c .eslintrc .",
-    "db:migrate": "cd scripts && NODE_ENV=development /bin/bash db_migrate.sh"
+    "db:migrate:up": "cd scripts && /bin/bash db_migrate.sh up",
+    "db:migrate:down": "cd scripts && /bin/bash db_migrate.sh down",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +33,7 @@
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.1.2",
+    "proxyquire": "^1.7.10",
     "sequelize-cli": "^2.4.0",
     "sinon": "^1.17.6",
     "sinon-as-promised": "^4.0.2"
