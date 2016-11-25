@@ -1,5 +1,5 @@
 module.exports = {
-  method: 'notFound',
+  method: 'badRequest',
 
   /**
    * Method handler for not found response
@@ -7,10 +7,10 @@ module.exports = {
    * @return {Hapi.Response}
    */
   handler(data = {}) {
-    this.request.server.log('trace', 'Sending 404 response', data);
+    this.request.server.log('badRequest', 'Sending 400 response', data);
 
     const res = this.response();
-    res.statusCode = 404;
+    res.statusCode = 400;
 
     return res;
   }

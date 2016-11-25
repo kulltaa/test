@@ -9,17 +9,13 @@ module.exports = {
    * @param {Object} data
    * @return {Hapi.Response}
    */
-  handler(data) {
-    if (data) {
-      this.request.server.log('error', 'Sending 500 response', data);
-    } else {
-      this.request.server.log('error', 'Sending empty 500 response');
-    }
+  handler(data = {}) {
+    this.request.server.log('error', 'Sending 500 response', data);
 
     let res;
 
     if (utils.env() === 'production') {
-      res = this.response();
+      res = this.response({});
     } else {
       res = this.response(data);
     }

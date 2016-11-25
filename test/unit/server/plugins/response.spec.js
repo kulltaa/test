@@ -24,6 +24,7 @@ describe('Response', () => {
   it('should register response plugin success', (done) => {
     server.ext('onRequest', (request, reply) => {
       expect(reply.success).to.be.an.instanceof(Function);
+      expect(reply.badRequest).to.be.an.instanceof(Function);
       expect(reply.notFound).to.be.an.instanceof(Function);
       expect(reply.serverError).to.be.an.instanceof(Function);
 
@@ -49,6 +50,26 @@ describe('Response', () => {
     server.inject('/', (res) => {
       expect(res.statusCode).to.equal(200);
       expect(res.result).to.deep.equal(expectedResponse);
+
+      done();
+    });
+  });
+
+  it('reply badRequest should return status code 400', (done) => {
+    const expectedResponse = {
+      data: []
+    };
+
+    server.route({
+      method: 'GET',
+      path: '/',
+      handler(request, reply) {
+        return reply.badRequest();
+      }
+    });
+
+    server.inject('/', (res) => {
+      expect(res.statusCode).to.equal(400);
 
       done();
     });

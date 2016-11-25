@@ -8,6 +8,8 @@ module.exports = {
    * @return Hapi.Response
    */
   handler(data = {}) {
+    this.request.server.log('trace', 'Sending 200 response', data);
+
     const res = this.response(data);
     res.statusCode = 200;
 

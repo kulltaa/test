@@ -39,6 +39,6 @@ case "$1" in
     downall
     ;;
   *)
-    echo -e "Usage: $0 {up|down|downall}\n"
+    echo -e "Usage: $0 {up|down}\n"
     exit 1
 esac
