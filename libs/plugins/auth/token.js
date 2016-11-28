@@ -12,8 +12,8 @@ const AUTH_SCHEME = 'bearer-access-token';
  */
 const validateAccessToken = function validateAccessToken(token, callback) {
   const request = this;
-  const User = request.getDb('condo').getModel('User');
-  const UserAccessToken = request.getDb('condo').getModel('UserAccessToken');
+  const User = request.getDb().getModel('User');
+  const UserAccessToken = request.getDb().getModel('UserAccessToken');
 
   UserAccessToken
     .isAccessTokenValid(token, User)

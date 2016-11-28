@@ -8,58 +8,61 @@ const authToken = require('../../../../libs/plugins/auth/token');
 const expect = chai.expect;
 
 describe('Auth', () => {
-  let stub;
-  let server;
 
-  beforeEach((done) => {
-    stub = sinon.stub(authToken.options, 'validateFunc');
+  describe('Token', () => {
+    let stub;
+    let server;
 
-    server = new Hapi.Server();
-    server.connection();
+    beforeEach((done) => {
+      stub = sinon.stub(authToken.options, 'validateFunc');
 
-    server.register(authPlugin, done);
-  })
+      server = new Hapi.Server();
+      server.connection();
 
-  afterEach((done) => {
-    stub.restore();
-    server.stop(done);
-  })
+      server.register(authPlugin, done);
+    })
 
-  it('should return credentials when request is valid', (done) => {
-    const credentials = {
-      username: 'some-username'
-    };
+    afterEach((done) => {
+      stub.restore();
+      server.stop(done);
+    })
 
-    stub.yields(null, true, credentials);
+    it('should return credentials when request is valid', (done) => {
+      const credentials = {
+        username: 'some-username'
+      };
 
-    const token = 'some-access-token';
-    const options = {
-      method: 'GET',
-      url: '/',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
+      stub.yields(null, true, credentials);
 
-    server.route({
-      method: 'GET',
-      path: '/',
-      handler (request, reply) {
-        request.server.auth.test(authToken.name, request, (error, credentials) => {
-          if (error) {
-            return reply(error);
-          }
+      const token = 'some-access-token';
+      const options = {
+        method: 'GET',
+        url: '/',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
 
-          return reply(credentials);
-        });
-      }
-    });
+      server.route({
+        method: 'GET',
+        path: '/',
+        handler (request, reply) {
+          request.server.auth.test(authToken.name, request, (error, credentials) => {
+            if (error) {
+              return reply(error);
+            }
 
-    server.inject(options, (res) => {
-      sinon.assert.calledWith(stub, token);
-      expect(res.result).to.deep.equal(credentials);
+            return reply(credentials);
+          });
+        }
+      });
 
-      done();
+      server.inject(options, (res) => {
+        sinon.assert.calledWith(stub, token);
+        expect(res.result).to.deep.equal(credentials);
+
+        done();
+      });
     });
   });
 });

@@ -9,5 +9,6 @@ exports.register = function registerRoute(server, options, next) {
 exports.register.attributes = {
   name: 'route',
   version: '0.0.1',
-  multiple: false
+  multiple: false,
+  dependencies: ['auth']
 };
